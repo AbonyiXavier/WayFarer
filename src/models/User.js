@@ -33,7 +33,7 @@ export default class User {
   static get loginSchema() {
     return Joi.object({
       password: Joi.string()
-        .regex(/^([a-zA-Z0-9]){8}$/)
+        .alphanum()
         .required(),
       email: Joi.string()
         .email()
