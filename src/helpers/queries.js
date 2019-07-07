@@ -12,4 +12,19 @@ export default class Queries {
     return `INSERT INTO users (firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
     VALUES ($1, $2, $3,$4,$5, $6, $7, $8)`;
   }
+
+  static get createTrip() {
+    return `INSERT into trips (busid, origin, destination, tripdate, fare, status)
+     VALUES ($1, $2, $3, $4, $5, $6)`;
+  }
+
+  static get busPlateNumber() {
+    return `SELECT * from buses WHERE
+     platenumber = $1`;
+  }
+
+  static get registerBus() {
+    return `INSERT INTO buses (platenumber, manufacturer, model, year, capacity) 
+    VALUES ($1, $2, $3, $4, $5)`;
+  }
 }

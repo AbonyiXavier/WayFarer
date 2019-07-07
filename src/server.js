@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import '@babel/polyfill/noConflict';
 import user from './routes/user';
+import bus from './routes/bus';
+import trip from './routes/trip';
 const app = express();
 
 dotenv.config();
@@ -16,6 +18,8 @@ app.use(cors());
 
 app.use(morgan('dev'));
 app.use('/api/v1/auth', user);
+app.use('/api/v1', bus);
+app.use('/api/v1', trip);
 
 const PORT = process.env.PORT || 5555;
 

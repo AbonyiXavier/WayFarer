@@ -14,7 +14,7 @@ export default class User {
         .max(50)
         .required(),
       password: Joi.string()
-        .regex(/^([a-zA-Z0-9]){8}$/)
+        .alphanum()
         .required(),
       email: Joi.string()
         .email()
@@ -41,6 +41,29 @@ export default class User {
         .max(150)
         .trim()
         .required(),
+    });
+  }
+
+  static get createTripSchema() {
+    return Joi.object({
+      busid: Joi.number()
+        .integer()
+        .required(),
+      origin: Joi.string()
+        .trim()
+        .min(3)
+        .required(),
+      tripdate: Joi.date()
+        .format('YYYY-MM-DD')
+        .required(),
+      destination: Joi.string()
+        .trim()
+        .min(3)
+        .required(),
+      fare: Joi.number().required(),
+      status: Joi.string()
+        .trim()
+        .valid('active', 'cancelled'),
     });
   }
 }
