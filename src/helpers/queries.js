@@ -18,6 +18,10 @@ export default class Queries {
      VALUES ($1, $2, $3, $4, $5, $6)`;
   }
 
+  static get getAllTrips() {
+    return 'SELECT * from trips';
+  }
+
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;

@@ -46,4 +46,16 @@ export default class tripController {
       console.log(error);
     }
   }
+
+  static async getAllTrips(req, res) {
+    try {
+      const { rows } = await db.Query(Queries.getAllTrips);
+      return res.status(200).json({
+        message: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
