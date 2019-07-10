@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 
 import db from '../helpers/db';
 import Queries from '../helpers/queries';
@@ -10,9 +11,16 @@ export default class tripController {
   static async createTrip(req, res) {
     try {
       const {
-        busid, origin, destination, tripdate, fare, status,
+        tripid,
+        busid,
+        origin,
+        destination,
+        tripdate,
+        fare,
+        status,
       } = req.body;
       const data = {
+        tripid: parseInt(tripid, 10),
         busid: parseInt(busid, 10),
         origin,
         destination,
@@ -25,6 +33,7 @@ export default class tripController {
       });
       if (result.error === null) {
         const args = [
+          data.tripid,
           data.busid,
           origin,
           destination,

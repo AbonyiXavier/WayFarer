@@ -14,8 +14,8 @@ export default class Queries {
   }
 
   static get createTrip() {
-    return `INSERT into trips (busid, origin, destination, tripdate, fare, status)
-     VALUES ($1, $2, $3, $4, $5, $6)`;
+    return `INSERT into trips ( tripid, busid, origin, destination, tripdate, fare, status)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`;
   }
 
   static get getAllTrips() {
@@ -25,6 +25,11 @@ export default class Queries {
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;
+  }
+
+  static get bookASeat() {
+    return `INSERT into bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
   }
 
   static get registerBus() {
