@@ -53,8 +53,7 @@ export default class bookingController {
         if (rows) {
           return res.status(201).json({
             status: 'success',
-            message: 'Booking successfully',
-            data: rows[0],
+            data: rows,
           });
         }
       }
