@@ -63,4 +63,16 @@ export default class bookingController {
       console.log(error);
     }
   }
+
+  static async viewAllBookings(req, res) {
+    try {
+      const { rows } = await db.Query(Queries.viewAllBookings);
+      return res.status(200).json({
+        message: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

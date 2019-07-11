@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.post('/bookings', bookingController.bookASeatOnATrip);
 
+router.get('/bookings', bookingController.viewAllBookings);
+
 export default router;
