@@ -10,9 +10,16 @@ export default class tripController {
   static async createTrip(req, res) {
     try {
       const {
-        busid, origin, destination, tripdate, fare, status,
+        tripid,
+        busid,
+        origin,
+        destination,
+        tripdate,
+        fare,
+        status,
       } = req.body;
       const data = {
+        tripid: parseInt(tripid, 10),
         busid: parseInt(busid, 10),
         origin,
         destination,
@@ -25,6 +32,7 @@ export default class tripController {
       });
       if (result.error === null) {
         const args = [
+          data.tripid,
           data.busid,
           origin,
           destination,
@@ -35,9 +43,8 @@ export default class tripController {
         const { rows } = await db.Query(Queries.createTrip, args);
         if (rows) {
           return res.status(201).json({
-            status: 201,
-            message: 'Trip created succesfully',
-            data: rows[0],
+            status: 'success',
+            data: rows,
           });
         }
       }
