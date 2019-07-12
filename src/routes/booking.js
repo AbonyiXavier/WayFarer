@@ -7,4 +7,6 @@ router.post('/bookings', bookingController.bookASeatOnATrip);
 
 router.get('/bookings', bookingController.viewAllBookings);
 
+router.delete('/bookings/:bookingid', bookingController.deleteBookingById);
+
 export default router;

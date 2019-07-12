@@ -4,7 +4,7 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-  const dropTable =		'DROP TABLE IF EXISTS users, buses, trips, bookings CASCADE';
+  const dropTable = 'DROP TABLE IF EXISTS users, buses, trips, bookings';
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     userid BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
     firstname VARCHAR(200) NOT NULL,
