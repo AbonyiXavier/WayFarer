@@ -22,6 +22,11 @@ export default class Queries {
     return 'SELECT * from trips';
   }
 
+  static get cancelTripById() {
+    return `UPDATE trips SET
+    status = 'cancelled' WHERE id = $1`;
+  }
+
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;

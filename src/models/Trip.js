@@ -24,4 +24,12 @@ export default class Trip {
         .valid('active', 'cancelled'),
     });
   }
+
+  static get cancelTripByIdSchema() {
+    return Joi.object({
+      tripid: Joi.number()
+        .integer()
+        .required(),
+    });
+  }
 }

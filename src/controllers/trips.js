@@ -67,4 +67,30 @@ export default class tripController {
       console.log(error);
     }
   }
+
+  static async cancelTrip(req, res) {
+    try {
+      const { tripid } = req.params;
+      const data = {
+        tripid: parseInt(tripid, 10),
+      };
+
+      const result = Joi.validate(data, Trip.cancelTripByIdSchema, {
+        convert: false,
+      });
+      if (result.error === null) {
+        const args = [data.tripid];
+        const { rowCount } = await db.Query(Queries.cancelTripById, args);
+        if (rowCount === 1) {
+          return res.status(200).json({
+            status: 'success',
+            message: 'Trip cancelled successfully',
+          });
+        }
+      }
+      response.errorResponse(res, 400, result.error.message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
