@@ -90,9 +90,10 @@ export default class userController {
             };
             const token = await jwt.sign(payload, process.env.SECRETKEY);
             return res.status(201).json({
-              status: 201,
+              status: 'success',
               message: 'Login success',
               token: `Bearer ${token}`,
+              data: rows,
             });
           }
           response.errorResponse(res, 400, 'Password incorrect');
