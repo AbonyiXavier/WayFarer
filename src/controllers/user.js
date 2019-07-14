@@ -2,6 +2,7 @@
 import bcrypt from 'bcryptjs';
 import gravatar from 'gravatar';
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 
 import db from '../helpers/db';
 import Queries from '../helpers/queries';
@@ -57,9 +58,21 @@ export default class userController {
           ];
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
+            const payload = {
+              firstname,
+              lastname,
+              phonenumber,
+              hashedPassword,
+              gender,
+              email,
+              avatar,
+            };
+            const token = await jwt.sign(payload, process.env.SECRETKEY);
             return res.status(201).json({
-              status: 201,
+              status: 'success',
               message: 'Register successfully',
+              token: `Bearer ${token}`,
+              data: rows,
             });
           }
         } else {

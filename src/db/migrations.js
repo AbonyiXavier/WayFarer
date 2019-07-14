@@ -6,7 +6,7 @@ dotenv.config();
 async function createSchema() {
   const dropTable = 'DROP TABLE IF EXISTS users';
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
-    userid BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
+    userid BIGSERIAL PRIMARY KEY,
     firstname VARCHAR(200) NOT NULL,
     lastname VARCHAR(200) NOT NULL,
     phonenumber VARCHAR(200) NOT NULL,
