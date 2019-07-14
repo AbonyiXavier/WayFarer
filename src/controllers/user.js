@@ -93,7 +93,6 @@ export default class userController {
               status: 'success',
               message: 'Login success',
               token: `Bearer ${token}`,
-              data: rows,
             });
           }
           response.errorResponse(res, 400, 'Password incorrect');

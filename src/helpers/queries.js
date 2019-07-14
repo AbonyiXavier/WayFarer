@@ -5,7 +5,7 @@ export default class Queries {
 
   static get userEmail() {
     return `SELECT * from users 
-    WHERE email = $1 RETURNING userid`;
+    WHERE email = $1`;
   }
 
   static get saveNewUser() {
