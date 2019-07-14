@@ -25,6 +25,7 @@ export default class userController {
   static async signUp(req, res) {
     try {
       const {
+        userid,
         firstname,
         lastname,
         email,
@@ -32,7 +33,16 @@ export default class userController {
         password,
         gender,
       } = req.body;
-      const result = Joi.validate(req.body, User.userSchema, {
+      const data = {
+        userid: parseInt(userid, 10),
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        password,
+        gender,
+      };
+      const result = Joi.validate(data, User.userSchema, {
         convert: false,
       });
       if (result.error === null) {
@@ -47,6 +57,7 @@ export default class userController {
             d: 'mm',
           });
           const args = [
+            data.userid,
             firstname,
             lastname,
             phonenumber,
@@ -59,6 +70,7 @@ export default class userController {
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
             const payload = {
+              userid,
               firstname,
               lastname,
               phonenumber,

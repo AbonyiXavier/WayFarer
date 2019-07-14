@@ -3,6 +3,9 @@ import Joi from 'joi';
 export default class User {
   static get userSchema() {
     return Joi.object({
+      userid: Joi.number()
+        .integer()
+        .required(),
       firstname: Joi.string()
         .min(2)
         .max(50)

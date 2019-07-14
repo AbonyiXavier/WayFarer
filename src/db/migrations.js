@@ -6,7 +6,8 @@ dotenv.config();
 async function createSchema() {
   const dropTable = 'DROP TABLE IF EXISTS users';
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
-    userid BIGSERIAL PRIMARY KEY,
+    id BIGSERIAL,
+    userid INTEGER NOT NULL,
     firstname VARCHAR(200) NOT NULL,
     lastname VARCHAR(200) NOT NULL,
     phonenumber VARCHAR(200) NOT NULL,
@@ -18,9 +19,9 @@ async function createSchema() {
   )`;
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync('password', salt);
-  const addUserToUserTable = `INSERT INTO users (firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
-  VALUES ('jude', 'okafor', '08012345678','${hashedPassword}','male', 'okaforjudechukwuebuka@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'TRUE'),
-  ('jason', 'okafor', '08012345678','${hashedPassword}','male', 'jasonokafor@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'FALSE')`;
+  const addUserToUserTable = `INSERT INTO users ( userid, firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
+  VALUES ( '14', 'jude', 'okafor', '08012345678','${hashedPassword}','male', 'okaforjudechukwuebuka@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'TRUE'),
+  ( '15', 'jason', 'okafor', '08012345678','${hashedPassword}','male', 'jasonokafor@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'FALSE')`;
   const client = await pool.connect();
   try {
     await client.query(dropTable);
