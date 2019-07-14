@@ -25,9 +25,9 @@ export default class userController {
   static async signUp(req, res) {
     try {
       const {
-        email,
         firstname,
         lastname,
+        email,
         phonenumber,
         password,
         gender,
