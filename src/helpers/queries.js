@@ -28,8 +28,8 @@ export default class Queries {
   }
 
   static get bookASeat() {
-    return `INSERT into bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon`;
+    return `INSERT into bookings ( userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
   }
 
   static get registerBus() {
