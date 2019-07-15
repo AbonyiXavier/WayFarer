@@ -10,16 +10,9 @@ export default class tripController {
   static async createTrip(req, res) {
     try {
       const {
-        tripid,
-        busid,
-        origin,
-        destination,
-        tripdate,
-        fare,
-        status,
+        busid, origin, destination, tripdate, fare, status,
       } = req.body;
       const data = {
-        tripid: parseInt(tripid, 10),
         busid: parseInt(busid, 10),
         origin,
         destination,
@@ -32,7 +25,6 @@ export default class tripController {
       });
       if (result.error === null) {
         const args = [
-          data.tripid,
           data.busid,
           origin,
           destination,
