@@ -4,7 +4,8 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-  const dropTable =		'DROP TABLE IF EXISTS users, buses, trips, bookings CASCADE';
+  const dropTable = `DROP TABLE IF EXISTS users, buses, trips, bookings 
+  CASCADE`;
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     userid BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
     firstname VARCHAR(200) NOT NULL,
@@ -50,8 +51,7 @@ async function createSchema() {
   ( '224', '54', 'Enugu', 'Benin', '2018-04-28', '7000', 'active')`;
 
   const createBookingsTable = `CREATE TABLE IF NOT EXISTS bookings (
-    id BIGSERIAL PRIMARY KEY,
-    bookingid INTEGER NOT NULL,
+    bookingid BIGSERIAL PRIMARY KEY,
     userid INTEGER NOT NULL,
     tripid INTEGER NOT NULL,
     busid INTEGER NOT NULL,
@@ -62,9 +62,9 @@ async function createSchema() {
     email VARCHAR(200) UNIQUE NOT NULL,
     createdon DATE NOT NULL
 )`;
-  const addBookingsToTable = `INSERT INTO bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon) 
-VALUES ( '15', '2', '234', '42', '2017-03-23', '3', 'sandra', 'okafor', 'ifeomasandra@gmail.com', '2017-03-23'),
-('76', '5', '411', '12', '2017-03-23','1', 'francis', 'xavier', 'xavier@yahoo.com', '2018-05-18')`;
+  const addBookingsToTable = `INSERT INTO bookings (userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon) 
+VALUES ('1', '1', '1', '2017-03-23', '3', 'sandra', 'okafor', 'ifeomasandra@gmail.com', '2017-03-23'),
+('2', '2', '2', '2017-03-23','1', 'francis', 'xavier', 'xavier@yahoo.com', '2018-05-18')`;
 
   const client = await pool.connect();
   try {
