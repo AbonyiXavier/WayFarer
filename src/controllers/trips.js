@@ -78,13 +78,17 @@ export default class tripController {
         convert: false,
       });
       if (result.error === null) {
-        const args = [data.tripid];
-        const { rowCount } = await db.Query(Queries.cancelTripById, args);
-        if (rowCount === 1) {
-          return res.status(200).json({
-            status: 'success',
-            message: 'Trip cancelled successfully',
-          });
+        if (req.user.isadmin === true) {
+          const args = [data.tripid];
+          const { rowCount } = await db.Query(Queries.cancelTripById, args);
+          if (rowCount === 1) {
+            return res.status(200).json({
+              status: 'success',
+              message: 'Trip cancelled successfully',
+            });
+          }
+        } else {
+          response.errorResponse(res, 401, 'Unanthorized access');
         }
       }
       response.errorResponse(res, 400, result.error.message);
