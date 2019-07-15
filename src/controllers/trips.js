@@ -31,21 +31,25 @@ export default class tripController {
         convert: false,
       });
       if (result.error === null) {
-        const args = [
-          data.tripid,
-          data.busid,
-          origin,
-          destination,
-          tripdate,
-          data.fare,
-          status,
-        ];
-        const { rows } = await db.Query(Queries.createTrip, args);
-        if (rows) {
-          return res.status(201).json({
-            status: 'success',
-            data: rows,
-          });
+        if (req.user.isadmin === true) {
+          const args = [
+            data.tripid,
+            data.busid,
+            origin,
+            destination,
+            tripdate,
+            data.fare,
+            status,
+          ];
+          const { rows } = await db.Query(Queries.createTrip, args);
+          if (rows) {
+            return res.status(201).json({
+              status: 'success',
+              data: rows,
+            });
+          }
+        } else {
+          response.errorResponse(res, 400, 'Trip exist');
         }
       }
       response.errorResponse(res, 400, result.error.message);

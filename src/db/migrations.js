@@ -4,7 +4,7 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-  const dropTable =		'DROP TABLE IF EXISTS users, buses, trips, bookings CASCADE';
+  const dropTable = 'DROP TABLE IF EXISTS users, buses, trips, bookings CASCADE';
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     userid BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
     firstname VARCHAR(200) NOT NULL,
@@ -46,8 +46,8 @@ async function createSchema() {
 )`;
 
   const addTripsToTable = `INSERT INTO trips ( tripid, busid, origin, destination, tripdate, fare, status) 
-  VALUES ( '144', '20', 'Abuja', 'Lagos', '2019-06-05', '8000', 'active'),
-  ( '224', '54', 'Enugu', 'Benin', '2018-04-28', '7000', 'active')`;
+  VALUES ( '1', '1', 'Abuja', 'Lagos', '2019-06-05', '8000', 'active'),
+  ( '2', '2', 'Enugu', 'Benin', '2018-04-28', '7000', 'active')`;
 
   const createBookingsTable = `CREATE TABLE IF NOT EXISTS bookings (
     id BIGSERIAL PRIMARY KEY,

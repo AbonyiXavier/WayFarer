@@ -15,12 +15,26 @@ export default class Queries {
 
   static get createTrip() {
     return `INSERT into trips ( tripid, busid, origin, destination, tripdate, fare, status)
-     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING tripid, busid, origin, destination, tripdate, fare, status`;
+     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING  tripid, busid, origin, destination, tripdate, fare, status`;
   }
+
+  static get getAllTrips() {
+    return 'SELECT * from trips';
+  }
+
+  // static get cancelTripById() {
+  //   return `UPDATE trips SET
+  //   status = 'cancelled' WHERE trpid = $1`;
+  // }
 
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;
+  }
+
+  static get bookASeat() {
+    return `INSERT into bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
   }
 
   static get registerBus() {
