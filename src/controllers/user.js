@@ -65,7 +65,7 @@ export default class userController {
             gender,
             email,
             avatar,
-            'FALSE',
+            'TRUE',
           ];
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
