@@ -9,4 +9,10 @@ router.post(
   tripController.createTrip,
 );
 
+router.get(
+  '/trips',
+  passport.authenticate('jwt', { session: false }),
+  tripController.getAllTrips,
+);
+
 export default router;
