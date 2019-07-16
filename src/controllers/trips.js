@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 
 import db from '../helpers/db';
 import Queries from '../helpers/queries';

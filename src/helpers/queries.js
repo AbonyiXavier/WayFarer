@@ -14,8 +14,6 @@ export default class Queries {
   }
 
   static get createTrip() {
-    return `INSERT into trips (busid, origin, destination, tripdate, fare, status)
-     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
   }
 
   static get getAllTrips() {
@@ -29,8 +27,7 @@ export default class Queries {
   }
 
   static get bookASeat() {
-    return `INSERT into bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+
   }
 
   static get registerBus() {

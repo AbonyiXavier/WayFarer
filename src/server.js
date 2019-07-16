@@ -8,6 +8,7 @@ import '@babel/polyfill/noConflict';
 import user from './routes/user';
 import bus from './routes/bus';
 import trip from './routes/trip';
+import booking from './routes/booking';
 const app = express();
 
 dotenv.config();
@@ -25,6 +26,7 @@ require('./middleware/passport')(passport);
 app.use('/api/v1/auth', user);
 app.use('/api/v1', bus);
 app.use('/api/v1', trip);
+app.use('/api/v1', booking);
 
 const PORT = process.env.PORT || 5555;
 

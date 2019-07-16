@@ -3,6 +3,9 @@ import Joi from 'joi';
 export default class Trip {
   static get createTripSchema() {
     return Joi.object({
+      tripid: Joi.number()
+        .integer()
+        .required(),
       busid: Joi.number()
         .integer()
         .required(),
