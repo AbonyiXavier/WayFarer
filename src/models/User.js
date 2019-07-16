@@ -46,4 +46,27 @@ export default class User {
         .required(),
     });
   }
+
+  static get createTripSchema() {
+    return Joi.object({
+      busid: Joi.number()
+        .integer()
+        .required(),
+      origin: Joi.string()
+        .trim()
+        .min(3)
+        .required(),
+      tripdate: Joi.date()
+        .format('YYYY-MM-DD')
+        .required(),
+      destination: Joi.string()
+        .trim()
+        .min(3)
+        .required(),
+      fare: Joi.number().required(),
+      status: Joi.string()
+        .trim()
+        .valid('active', 'cancelled'),
+    });
+  }
 }

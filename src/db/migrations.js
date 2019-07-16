@@ -4,7 +4,8 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-  const dropTable = 'DROP TABLE IF EXISTS users';
+  const dropTable = `DROP TABLE IF EXISTS users, buses, trips, bookings
+   CASCADE`;
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL,
     userid INTEGER NOT NULL,
@@ -19,13 +20,17 @@ async function createSchema() {
   )`;
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync('password', salt);
-  VALUES ( '14', 'jude', 'okafor', '08012345678','${hashedPassword}','male', 'okaforjudechukwuebuka@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'TRUE'),
-  ( '15', 'jason', 'okafor', '08012345678','${hashedPassword}','male', 'jasonokafor@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'FALSE')`;
   const client = await pool.connect();
   try {
     await client.query(dropTable);
     await client.query(createUserTable);
     await client.query(addUserToUserTable);
+    await client.query(createBusTable);
+    await client.query(addBusToTable);
+    await client.query(createTripsTable);
+    await client.query(addTripsToTable);
+    await client.query(createBookingsTable);
+    await client.query(addBookingsToTable);
   } catch (e) {
     console.log(e.stack);
   } finally {
