@@ -83,12 +83,13 @@ export default class userController {
               token: `Bearer ${token}`,
             });
           }
-          response.errorResponse(res, 400, 'Password incorrect');
+          response.errorResponse(res, 404, 'Password incorrect');
         }
         response.errorResponse(res, 404, 'User does not exist');
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
