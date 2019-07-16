@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 
 import tripController from '../controllers/trips';
 const router = express.Router();
@@ -13,6 +14,12 @@ router.get(
   '/trips',
   passport.authenticate('jwt', { session: false }),
   tripController.getAllTrips,
+);
+
+router.patch(
+  '/trips/:tripid',
+  passport.authenticate('jwt', { session: false }),
+  tripController.cancelTrip,
 );
 
 export default router;

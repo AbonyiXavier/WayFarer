@@ -20,7 +20,6 @@ export default class Queries {
     return 'SELECT * from trips';
   }
 
-
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;
@@ -28,15 +27,6 @@ export default class Queries {
 
   static get bookASeat() {
 
-  }
-
-  static get viewAllBookings() {
-    return 'SELECT * from bookings';
-  }
-
-  static get deleteBookingById() {
-    return `DELETE from bookings WHERE
-     bookingid = $1`;
   }
 
   static get registerBus() {

@@ -3,9 +3,6 @@ import Joi from 'joi';
 export default class Trip {
   static get createTripSchema() {
     return Joi.object({
-      tripid: Joi.number()
-        .integer()
-        .required(),
       busid: Joi.number()
         .integer()
         .required(),
@@ -22,6 +19,14 @@ export default class Trip {
       status: Joi.string()
         .trim()
         .valid('active', 'cancelled'),
+    });
+  }
+
+  static get cancelTripByIdSchema() {
+    return Joi.object({
+      tripid: Joi.number()
+        .integer()
+        .required(),
     });
   }
 }
