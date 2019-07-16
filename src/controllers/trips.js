@@ -31,21 +31,7 @@ export default class tripController {
         convert: false,
       });
       if (result.error === null) {
-        const args = [
-          data.tripid,
-          data.busid,
-          origin,
-          destination,
-          tripdate,
-          data.fare,
-          status,
-        ];
-        const { rows } = await db.Query(Queries.createTrip, args);
-        if (rows) {
-          return res.status(201).json({
-            status: 'success',
-            data: rows,
-          });
+
         }
       }
       response.errorResponse(res, 400, result.error.message);
