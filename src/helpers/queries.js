@@ -9,8 +9,8 @@ export default class Queries {
   }
 
   static get saveNewUser() {
-    return `INSERT INTO users (firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
-    VALUES ($1, $2, $3,$4,$5, $6, $7, $8)`;
+    return `INSERT INTO users ( userid, firstname, lastname, phonenumber, password, gender, email, avatar, isadmin) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING userid, firstname, lastname, phonenumber, password, gender, email, avatar,isadmin`;
   }
 
   static get createTrip() {
@@ -22,19 +22,13 @@ export default class Queries {
     return 'SELECT * from trips';
   }
 
-  static get cancelTripById() {
-    return `UPDATE trips SET
-    status = 'cancelled' WHERE tripid = $1`;
-  }
-
   static get busPlateNumber() {
     return `SELECT * from buses WHERE
      platenumber = $1`;
   }
 
   static get bookASeat() {
-    return `INSERT into bookings (bookingid, userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+
   }
 
   static get registerBus() {

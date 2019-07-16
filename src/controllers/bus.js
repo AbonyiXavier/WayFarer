@@ -38,7 +38,7 @@ export default class busController {
         const { rows } = await db.Query(Queries.registerBus, args);
         if (rows) {
           return res.status(201).json({
-            status: 201,
+            status: 'success',
             message: 'Bus registered succesfully',
             data: rows[0],
           });
