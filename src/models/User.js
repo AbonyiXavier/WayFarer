@@ -16,14 +16,14 @@ export default class User {
         .min(2)
         .max(50)
         .required(),
-      password: Joi.string()
-        .regex(/^([a-zA-Z0-9]){8}$/)
-        .required(),
       email: Joi.string()
         .email()
         .min(5)
         .max(150)
         .trim()
+        .required(),
+      password: Joi.string()
+        .regex(/^([a-zA-Z0-9]){8}$/)
         .required(),
       phonenumber: Joi.string()
         .trim()
