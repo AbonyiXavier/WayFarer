@@ -10,7 +10,6 @@ export default class bookingController {
   static async bookASeatOnATrip(req, res) {
     try {
       const {
-        bookingid,
         userid,
         tripid,
         busid,
@@ -22,7 +21,6 @@ export default class bookingController {
         createdon,
       } = req.body;
       const data = {
-        bookingid: parseInt(bookingid, 10),
         userid: parseInt(userid, 10),
         busid: parseInt(busid, 10),
         tripid: parseInt(tripid, 10),
@@ -38,7 +36,6 @@ export default class bookingController {
       });
       if (result.error === null) {
         const args = [
-          data.bookingid,
           data.userid,
           data.tripid,
           data.busid,
@@ -53,8 +50,7 @@ export default class bookingController {
         if (rows) {
           return res.status(201).json({
             status: 'success',
-            message: 'Booking successfully',
-            data: rows[0],
+            data: rows,
           });
         }
       }

@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use(morgan('dev'));
+
 app.use(passport.initialize());
 require('./middleware/passport')(passport);
 

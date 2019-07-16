@@ -3,6 +3,9 @@ import Joi from 'joi';
 export default class User {
   static get userSchema() {
     return Joi.object({
+      userid: Joi.number()
+        .integer()
+        .required(),
       firstname: Joi.string()
         .min(2)
         .max(50)
@@ -13,14 +16,14 @@ export default class User {
         .min(2)
         .max(50)
         .required(),
-      password: Joi.string()
-        .alphanum()
-        .required(),
       email: Joi.string()
         .email()
         .min(5)
         .max(150)
         .trim()
+        .required(),
+      password: Joi.string()
+        .regex(/^([a-zA-Z0-9]){8}$/)
         .required(),
       phonenumber: Joi.string()
         .trim()
@@ -33,7 +36,7 @@ export default class User {
   static get loginSchema() {
     return Joi.object({
       password: Joi.string()
-        .alphanum()
+        .regex(/^([a-zA-Z0-9]){8}$/)
         .required(),
       email: Joi.string()
         .email()
