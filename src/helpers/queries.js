@@ -34,6 +34,11 @@ export default class Queries {
     return 'SELECT * from bookings';
   }
 
+  static get deleteBookingById() {
+    return `DELETE from bookings WHERE
+     bookingid = $1`;
+  }
+
   static get registerBus() {
     return `INSERT INTO buses (platenumber, manufacturer, model, year, capacity) 
     VALUES ($1, $2, $3, $4, $5)`;

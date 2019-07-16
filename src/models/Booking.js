@@ -35,4 +35,12 @@ export default class Booking {
         .required(),
     });
   }
+
+  static get deleteBookingIdSchema() {
+    return Joi.object({
+      bookingid: Joi.number()
+        .integer()
+        .required(),
+    });
+  }
 }

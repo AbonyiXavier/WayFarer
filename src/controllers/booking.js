@@ -71,4 +71,35 @@ export default class bookingController {
       console.log(error);
     }
   }
+
+  static async deleteBookingById(req, res) {
+    try {
+      const { bookingid } = req.body;
+      const data = {
+        bookingid: parseInt(bookingid, 10),
+      };
+
+      const result = Joi.validate(data, Booking.deleteBookingIdSchema, {
+        convert: false,
+      });
+      if (result.error === null) {
+        const args = [data.bookingid];
+        const { rowCount } = await db.Query(Queries.deleteBookingById, args);
+        if (rowCount === 1) {
+          return res.status(200).json({
+            status: 'success',
+            message: 'Booking deleted successfully',
+          });
+        }
+        response.errorResponse(
+          res,
+          400,
+          'Could not delete booking because it was not found',
+        );
+      }
+      response.errorResponse(res, 400, result.error.message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

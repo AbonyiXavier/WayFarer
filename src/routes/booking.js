@@ -17,4 +17,10 @@ router.get(
   bookingController.viewAllBookings,
 );
 
+router.delete(
+  '/bookings/:bookingid',
+  passport.authenticate('jwt', { session: false }),
+  bookingController.deleteBookingById,
+);
+
 export default router;

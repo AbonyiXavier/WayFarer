@@ -4,7 +4,6 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL,
     userid INTEGER NOT NULL,
