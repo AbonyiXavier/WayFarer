@@ -30,6 +30,7 @@ app.use('/api/v1', booking);
 
 const PORT = process.env.PORT || 5555;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server Started at Port : ${PORT}`);
 });
+export default server;

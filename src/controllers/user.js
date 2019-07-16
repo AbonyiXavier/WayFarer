@@ -10,19 +10,6 @@ import response from '../helpers/response';
 import User from '../models/User';
 
 export default class userController {
-  static async test(req, res) {
-    try {
-      const { rows } = await db.Query(Queries.testQuery);
-      return res.status(200).json({
-        message: 'Test works',
-        data: rows,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    return false;
-  }
-
   static async signUp(req, res) {
     try {
       const {
@@ -68,6 +55,7 @@ export default class userController {
         response.errorResponse(res, 400, result.error.message);
       }
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
