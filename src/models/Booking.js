@@ -3,9 +3,6 @@ import Joi from 'joi';
 export default class Booking {
   static get bookingSchema() {
     return Joi.object({
-      bookingid: Joi.number()
-        .integer()
-        .required(),
       userid: Joi.number()
         .integer()
         .required(),
