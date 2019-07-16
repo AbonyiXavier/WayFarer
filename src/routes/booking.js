@@ -11,4 +11,10 @@ router.post(
   bookingController.bookASeatOnATrip,
 );
 
+router.get(
+  '/bookings',
+  passport.authenticate('jwt', { session: false }),
+  bookingController.viewAllBookings,
+);
+
 export default router;

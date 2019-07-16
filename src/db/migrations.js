@@ -4,8 +4,7 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
-  const dropTable = `DROP TABLE IF EXISTS users, buses, trips, bookings
-   CASCADE`;
+
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL,
     userid INTEGER NOT NULL,
@@ -20,6 +19,7 @@ async function createSchema() {
   )`;
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync('password', salt);
+
   const client = await pool.connect();
   try {
     await client.query(dropTable);

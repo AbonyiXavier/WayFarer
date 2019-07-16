@@ -30,6 +30,10 @@ export default class Queries {
 
   }
 
+  static get viewAllBookings() {
+    return 'SELECT * from bookings';
+  }
+
   static get registerBus() {
     return `INSERT INTO buses (platenumber, manufacturer, model, year, capacity) 
     VALUES ($1, $2, $3, $4, $5)`;
