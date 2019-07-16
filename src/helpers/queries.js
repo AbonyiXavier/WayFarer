@@ -9,8 +9,8 @@ export default class Queries {
   }
 
   static get saveNewUser() {
-    return `INSERT INTO users (firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
-    VALUES ($1, $2, $3,$4,$5, $6, $7, $8)`;
+    return `INSERT INTO users ( userid, firstname, lastname, phonenumber, password, gender, email, avatar, isadmin) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING userid, firstname, lastname, phonenumber, password, gender, email, avatar,isadmin`;
   }
 
   static get createTrip() {
