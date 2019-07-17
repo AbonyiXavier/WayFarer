@@ -3,13 +3,19 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { Pool } = pg;
 
+let connectionString;
+let ssl;
+if (process.env.NODE_ENV === 'test') {
+  connectionString = process.env.PGLOCAL;
+  ssl = false;
+} else {
+  connectionString = process.env.DATABASE_URL;
+  ssl = true;
+}
+
 const pool = new Pool({
-  host: process.env.PGHOST,
-  port: process.env.PGPORT,
-  database: process.env.PGDATABASE,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  ssl: false,
+  connectionString,
+  ssl,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });

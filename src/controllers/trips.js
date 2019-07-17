@@ -43,6 +43,7 @@ export default class tripController {
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
@@ -55,6 +56,7 @@ export default class tripController {
         data: rows,
       });
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
@@ -85,6 +87,7 @@ export default class tripController {
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
