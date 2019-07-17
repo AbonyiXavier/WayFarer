@@ -46,6 +46,7 @@ export default class busController {
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }

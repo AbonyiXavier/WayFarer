@@ -11,6 +11,7 @@ import User from '../models/User';
 
 export default class userController {
   static async signUp(req, res) {
+    console.log(req);
     try {
       const {
         userid,
@@ -57,6 +58,10 @@ export default class userController {
           ];
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
+            return res.status(201).json({
+              status: 'success',
+              message: 'Register successfully',
+            });
           }
         } else {
           response.errorResponse(res, 404, 'User already exist');

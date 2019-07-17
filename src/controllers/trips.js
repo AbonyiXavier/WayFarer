@@ -24,7 +24,21 @@ export default class tripController {
         convert: false,
       });
       if (result.error === null) {
-
+        const args = [
+          data.busid,
+          origin,
+          destination,
+          data.tripdate,
+          data.fare,
+          status,
+        ];
+        const { rows } = await db.Query(Queries.createTrip, args);
+        if (rows) {
+          return res.status(201).json({
+            status: 201,
+            message: 'Trip created successfully',
+            data: rows,
+          });
         }
       }
       response.errorResponse(res, 400, result.error.message);
@@ -49,9 +63,9 @@ export default class tripController {
 
   static async cancelTrip(req, res) {
     try {
-      const { tripid } = req.params;
+      const { id } = req.params;
       const data = {
-        tripid: parseInt(tripid, 10),
+        tripid: parseInt(id, 10),
       };
 
       const result = Joi.validate(data, Trip.cancelTripByIdSchema, {
@@ -59,7 +73,7 @@ export default class tripController {
       });
       if (result.error === null) {
         if (req.user.isadmin === true) {
-          const args = [data.tripid];
+          const args = [data.id];
           const { rowCount } = await db.Query(Queries.cancelTripById, args);
           if (rowCount === 1) {
             return res.status(200).json({

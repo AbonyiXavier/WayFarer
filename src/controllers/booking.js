@@ -56,6 +56,7 @@ export default class bookingController {
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
@@ -68,6 +69,7 @@ export default class bookingController {
         data: rows,
       });
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
@@ -75,15 +77,11 @@ export default class bookingController {
   static async deleteBookingById(req, res) {
     try {
       const { bookingid } = req.body;
-      const data = {
-        bookingid: parseInt(bookingid, 10),
-      };
-
-      const result = Joi.validate(data, Booking.deleteBookingIdSchema, {
+      const result = Joi.validate(Queries, Booking.deleteBookingIdSchema, {
         convert: false,
       });
       if (result.error === null) {
-        const args = [data.bookingid];
+        const args = [bookingid];
         const { rowCount } = await db.Query(Queries.deleteBookingById, args);
         if (rowCount === 1) {
           return res.status(200).json({
@@ -99,6 +97,7 @@ export default class bookingController {
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
