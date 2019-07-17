@@ -4,30 +4,75 @@ import pool from './config';
 
 dotenv.config();
 async function createSchema() {
+  const dropTable = 'DROP TABLE IF EXISTS users, trips, buses, bookings';
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
-    id BIGSERIAL,
-    userid INTEGER NOT NULL,
+    userid BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
     firstname VARCHAR(200) NOT NULL,
     lastname VARCHAR(200) NOT NULL,
     phonenumber VARCHAR(200) NOT NULL,
     password VARCHAR(500) NOT NULL,
+    address VARCHAR(500),
     gender VARCHAR(30),
     email VARCHAR(200) UNIQUE NOT NULL,
-    avatar VARCHAR(500),
-    isadmin BOOLEAN
+    avatar VARCHAR(500) NOT NULL,
+    isadmin BOOLEAN,
   )`;
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync('password', salt);
+  const addUserToUserTable = `INSERT INTO users (firstname, lastname, phonenumber, password, gender, email, avatar,isadmin) 
+  VALUES ('francis', 'abonyi', '08094389953','${hashedPassword}','male', 'francisabonyi@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'TRUE'),
+  ('ifeoma', 'sandra', '0810203838','${hashedPassword}','female', 'sandraifeoma@gmail.com', '//www.gravatar.com/avatar/16b7ce500621cfe1940b09d09ee42385?s=200&r=pg&d=mm', 'FALSE'),`;
+
+  const createBusesTable = `CREATE TABLE IF NOT EXISTS buses (
+    id bigserial PRIMARY KEY UNIQUE NOT NULL,
+    platenumber VARCHAR(200) NOT NULL,
+    manufacturer VARCHAR(200) NOT NULL,
+    model VARCHAR(200) NOT NULL,
+    year INTEGER NOT NULL,
+    capacity INTEGER NOT NULL,
+    )`;
+  const addbusesToTable = `INSERT INTO buses (platenumber, manufacturer,  model, year, capacity ) 
+  VALUES ('GN804-PJA','Toyota', 'Toyota Motor Corporation', '2011', '18'),
+  ('HUN3D', 'Nv350', 'Nissan', 2009, '30'),
+  `;
+  const createTripsTable = `CREATE TABLE IF NOT EXISTS trips (
+    id BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
+    busid INTEGER NOT NULL,
+    origin VARCHAR(200) NOT NULL,
+    destination VARCHAR(200) NOT NULL,
+    tripdate DATE NOT NULL,
+    fare INTEGER NOT NULL,
+    status NOT NULL
+)`;
+
+  const addtripsToTable = `INSERT INTO trips (busid, origin, destination, tripdate, fare, status) 
+VALUES ('1', 'Abuja', 'Lagos','2019-05-07','9000', 'active')
+('2', 'Enugu', 'Edo','2019-05-07','5000', 'active')`;
+  const createBookingsTable = `CREATE TABLE IF NOT EXISTS bookings (
+  bookingid BIGSERIAL PRIMARY KEY, 
+  userid INTEGER NOT NULL,
+  tripid INTEGER NOT NULL,
+  busid INTEGER NOT NULL,
+  tripdate DATE NOT NULL,
+  seatnumber INTEGER NOT NULL,
+  firstname VARCHAR(200) NOT NULL,
+  lastname VARCHAR(200) NOT NULL,
+  email VARCHAR(200) UNIQUE NOT NULL,
+  createdon DATE NOT NULL
+)`;
+  const addBookingsToTable = `INSERT INTO bookings (userid, tripid, busid, tripdate, seatnumber, firstname, lastname, email, createdon) 
+VALUES ( '1', '1', '42', '2017-03-23', '3', 'sandra', 'okafor', 'ifeomasandra@gmail.com', '2017-03-23'),
+( '2', '2', '12', '2017-03-23','1', 'francis', 'xavier', 'xavier@yahoo.com', '2018-05-18')`;
 
   const client = await pool.connect();
   try {
     await client.query(dropTable);
     await client.query(createUserTable);
     await client.query(addUserToUserTable);
-    await client.query(createBusTable);
-    await client.query(addBusToTable);
+    await client.query(createBusesTable);
+    await client.query(addbusesToTable);
     await client.query(createTripsTable);
-    await client.query(addTripsToTable);
+    await client.query(addtripsToTable);
     await client.query(createBookingsTable);
     await client.query(addBookingsToTable);
   } catch (e) {

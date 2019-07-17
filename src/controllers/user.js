@@ -10,20 +10,8 @@ import response from '../helpers/response';
 import User from '../models/User';
 
 export default class userController {
-  static async test(req, res) {
-    try {
-      const { rows } = await db.Query(Queries.testQuery);
-      return res.status(200).json({
-        message: 'Test works',
-        data: rows,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    return false;
-  }
-
   static async signUp(req, res) {
+    console.log(req);
     try {
       const {
         userid,
@@ -70,6 +58,10 @@ export default class userController {
           ];
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
+            return res.status(201).json({
+              status: 'success',
+              message: 'Register successfully',
+            });
           }
         } else {
           response.errorResponse(res, 404, 'User already exist');
@@ -78,6 +70,7 @@ export default class userController {
         response.errorResponse(res, 400, result.error.message);
       }
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
@@ -105,12 +98,13 @@ export default class userController {
               token: `Bearer ${token}`,
             });
           }
-          response.errorResponse(res, 400, 'Password incorrect');
+          response.errorResponse(res, 404, 'Password incorrect');
         }
         response.errorResponse(res, 404, 'User does not exist');
       }
       response.errorResponse(res, 400, result.error.message);
     } catch (error) {
+      /* istanbul ignore next */
       console.log(error);
     }
   }
