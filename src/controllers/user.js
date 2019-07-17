@@ -13,14 +13,24 @@ export default class userController {
   static async signUp(req, res) {
     try {
       const {
-        email,
+        userid,
         firstname,
         lastname,
+        email,
         phonenumber,
         password,
         gender,
       } = req.body;
-      const result = Joi.validate(req.body, User.userSchema, {
+      const data = {
+        userid: parseInt(userid, 10),
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        password,
+        gender,
+      };
+      const result = Joi.validate(data, User.userSchema, {
         convert: false,
       });
       if (result.error === null) {
@@ -35,6 +45,7 @@ export default class userController {
             d: 'mm',
           });
           const args = [
+            data.userid,
             firstname,
             lastname,
             phonenumber,
@@ -42,11 +53,10 @@ export default class userController {
             gender,
             email,
             avatar,
-            'FALSE',
+            'TRUE',
           ];
           const { rows } = await db.Query(Queries.saveNewUser, args);
           if (rows) {
-            response.errorResponse(res, 201, 'Register successfully');
           }
         } else {
           response.errorResponse(res, 404, 'User already exist');
@@ -78,7 +88,7 @@ export default class userController {
             };
             const token = await jwt.sign(payload, process.env.SECRETKEY);
             return res.status(201).json({
-              status: 201,
+              status: 'success',
               message: 'Login success',
               token: `Bearer ${token}`,
             });
